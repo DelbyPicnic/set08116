@@ -98,12 +98,14 @@ bool load_content() {
 }
 
 bool update(float delta_time) {
+
 	// *********************************
 	// Use keys to update transform values
 	// WSAD - movement
 	// Cursor - rotation
 	// O decrease scale, P increase scale
 
+	//ROTATION
 	if (glfwGetKey(renderer::get_window(), GLFW_KEY_UP)) {
 		theta -= pi<float>() * delta_time;
 	}
@@ -117,6 +119,36 @@ bool update(float delta_time) {
 		rho += pi<float>() * delta_time;
 	}
 
+	//TRANSFORMATION
+	if (glfwGetKey(renderer::get_window(), GLFW_KEY_W)) {
+		pos += vec3(0.0f, 0.0f, -5.0f) * delta_time;
+	}
+	if (glfwGetKey(renderer::get_window(), GLFW_KEY_S)) {
+		pos += vec3(0.0f, 0.0f, 5.0f) * delta_time;
+	}
+	if (glfwGetKey(renderer::get_window(), GLFW_KEY_D)) {
+		pos += vec3(-5.0f, 0.0f, 0.0f) * delta_time;
+	}
+	if (glfwGetKey(renderer::get_window(), GLFW_KEY_A)) {
+		pos += vec3(5.0f, 0.0f, 0.0f) * delta_time;
+	}
+
+	//SCALE
+	if (glfwGetKey(renderer::get_window(), GLFW_KEY_P)) {
+		s += 1 * delta_time;
+	}
+	if (glfwGetKey(renderer::get_window(), GLFW_KEY_O)) {
+		s -= 1 * delta_time;
+	}
+	
+
+  // *********************************
+  // Use keys to update transform values
+  // WSAD - movement
+  // Arrow Keys - rotation
+  // O decrease scale, P increase scale
+
+
   // *********************************
   // Update the camera
   cam.update(delta_time);
@@ -129,7 +161,12 @@ bool render() {
   mat4 T, R, S, M;
   // *********************************
   // Create transformation matrix
-  M = eulerAngleXZ(theta, rho);
+  T = translate(mat4(1.0f), vec3(pos));
+  R = eulerAngleXZ(theta, rho);
+  S = scale(mat4(1.0f), vec3(s, s, s));
+  M = T * (R * S);
+  // M = 
+
 
   //TODO: Create Transformation Matrix
 

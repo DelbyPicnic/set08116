@@ -25,7 +25,21 @@ void divide_triangle(const vector<vec3> &points, unsigned int count, vector<vec3
 		// Calculate new vertices to work on
 		
 		// Divide new triangles
-	
+	if (count > 0) {
+		count--;
+		//Calculate new vert
+		auto midA = (points[0] + points[1])/2.0f;
+		auto midB = (points[0] + points[2])/2.0f;
+		auto midC = (points[1] + points[2])/2.0f;
+
+		//Make new triangles
+		divide_triangle({ points[0], midB, midA }, count, positions, colours);
+		divide_triangle({ midB, points[2], midC }, count, positions, colours);
+		divide_triangle({ midA, midB, points[1] }, count, positions, colours);
+	}
+	else {
+		triangle(points, positions, colours);
+	}
 
 
 
@@ -39,7 +53,7 @@ bool load_content() {
   // Required buffers
   vector<vec3> positions;
   vector<vec4> colours;
-  divide_triangle({vec3(1.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(-1.0f, -1.0f, 0.0f)}, 0, positions, colours);
+  divide_triangle({vec3(1.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(-1.0f, -1.0f, 0.0f)}, 3, positions, colours);
 
   // Add to the geometry
   geom.add_buffer(positions, BUFFER_INDEXES::POSITION_BUFFER);

@@ -31,7 +31,7 @@ bool load_content() {
     // *********************************
 	  m = mesh(geom);
     // Scale each mesh by 10
-	  m.get_transform().scale(10.0);
+	  m.get_transform().scale(10);
     // *********************************
   }
 

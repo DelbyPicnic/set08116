@@ -34,6 +34,7 @@ bool load_content() {
 
   // Load in blend shader
   eff.add_shader("32_Blended_Textures/blend.vert", GL_VERTEX_SHADER);
+
   eff.add_shader("32_Blended_Textures/blend.frag", GL_FRAGMENT_SHADER);
 
   // Build effect
@@ -76,9 +77,9 @@ bool render() {
 
   // *********************************
   // Bind the three textures - use different index for each
-
-
-
+  renderer::bind(texs[0], 0);
+  renderer::bind(texs[1], 1);
+  renderer::bind(blend_map, 2);
   // *********************************
 
   // Set the uniform values for textures

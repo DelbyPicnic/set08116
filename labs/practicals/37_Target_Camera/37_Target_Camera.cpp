@@ -61,7 +61,7 @@ bool update(float delta_time) {
   // *********************************
   // Use keyboard to change camera location
   // 1 - (50, 10, 50)
-	if 
+
 
 
   // 2 - (-50, 10, 50)

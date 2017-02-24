@@ -43,6 +43,7 @@ bool load_content() {
   // Load in shaders
   eff.add_shader("46_Combined_Lighting/combined_lighting.vert", GL_VERTEX_SHADER);
   eff.add_shader("46_Combined_Lighting/combined_lighting.frag", GL_FRAGMENT_SHADER);
+
   // Build effect
   eff.build();
 

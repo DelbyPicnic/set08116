@@ -25,9 +25,9 @@ uniform vec3 eye_pos;
 uniform sampler2D tex;
 
 // Incoming position
-layout(location = 0) in vec3 position;
+layout(location = 0) in vec3 vertex_position;
 // Incoming normal
-layout(location = 1) in vec3 normal;
+layout(location = 1) in vec3 transformed_normal;
 // Incoming texture coordinate
 layout(location = 2) in vec2 tex_coord;
 
@@ -38,21 +38,7 @@ void main() {
 
   // *********************************
   // Calculate ambient component
-
-  // Calculate diffuse component
-
-  // Calculate view direction
-
-  // Calculate half vector
-
-  // Calculate specular component
-
-  // Sample texture
-
-  // Calculate primary colour component
-
-  // Calculate final colour - remember alpha
-
-
+  vec4 ambient = light.ambient_intensity * light.light_colour;
+  
   // *********************************
 }

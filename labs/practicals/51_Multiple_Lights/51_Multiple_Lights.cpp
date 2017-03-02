@@ -9,8 +9,8 @@ map<string, mesh> meshes;
 effect eff;
 texture tex;
 target_camera cam;
-vector<point_light> points(4);
-vector<spot_light> spots(5);
+vector<point_light> points(9);
+
 
 bool load_content() {
   // Create plane mesh
@@ -201,23 +201,21 @@ bool render() {
                        value_ptr(MVP));                 // Pointer to matrix data
     // *********************************
     // Set M matrix uniform
-
+	glUniformMatrix4fv(eff.get_uniform_location("M"), 1, GL_FALSE, value_ptr(M));
     // Set N matrix uniform - remember - 3x3 matrix
-
+	glUniformMatrix3fv(eff.get_uniform_location("N"), 1, GL_FALSE, value_ptr(m.get_transform().get_normal_matrix()));
     // Bind material
-
+	renderer::bind(m.get_material(), "mat");
     // Bind point lights
-
-    // Bind spot lights
-
+	renderer::bind(points, "points");
     // Bind texture
-
+	renderer::bind(tex, 0);
     // Set tex uniform
-
+	glUniform1i(eff.get_uniform_location("tex"), 0);
     // Set eye position- Get this from active camera
-
+	glUniform3fv(eff.get_uniform_location("eye_pos"), 1, value_ptr(cam.get_position()));
     // Render mesh
-
+	renderer::render(m);
     // *********************************
   }
 

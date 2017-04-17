@@ -44,7 +44,7 @@ void generate_terrain(geometry &geom, const texture &height_map, unsigned int wi
     for (int z = 0; z < height_map.get_height(); ++z) {
       // *********************************
       // Calculate z position of point
-		point.z = -(depth / 2) + (depth_point * z);
+		point.z = -(depth / 2.0f) + (depth_point * z);
       // *********************************
       // Y position based on red component of height map data
       point.y = data[(z * height_map.get_width()) + x].y * height_scale;
@@ -92,7 +92,7 @@ void generate_terrain(geometry &geom, const texture &height_map, unsigned int wi
 
     // Normal is normal(cross product) of these two sides
     // *********************************
-	auto n = cross(side2, side1);
+	vec3 n = cross(side2, side1);
 
     // Add to normals in the normal buffer using the indices for the triangle
 	normals[idx1] = normals[idx1] + n;
@@ -104,7 +104,7 @@ void generate_terrain(geometry &geom, const texture &height_map, unsigned int wi
   // Normalize all the normals
   for (auto &n : normals) {
     // *********************************
-	  normalize(n);
+	  n = normalize(n);
     // *********************************
   }
 
@@ -126,11 +126,11 @@ void generate_terrain(geometry &geom, const texture &height_map, unsigned int wi
 
       // *********************************
       // Sum the components of the vector
-	  
+	  float total = tex_weight.x + tex_weight.y + tex_weight.z + tex_weight.a;
       // Divide weight by sum
-
+	  tex_weight = tex_weight / total;
       // Add tex weight to weights
-
+	  tex_weights.push_back(tex_weight);
       // *********************************
     }
   }
